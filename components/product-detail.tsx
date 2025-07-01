@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const ProductDetail = ({ product }: Props) => {
-	const {items, addItem} = useCartStore();
+	const {items, addItem, removeItem} = useCartStore();
     const price = product.default_price as Stripe.Price;
     const cartItem = items.find((item) => item.id === product.id);
     const quantity = cartItem ? cartItem.quantity : 0
@@ -48,7 +48,7 @@ export const ProductDetail = ({ product }: Props) => {
 						</p>
 					)}
                     <div className="flex items-center space-x-4">
-                        <Button className="w-12" variant="outline">-</Button>
+                        <Button className="w-12" variant="outline" onClick={() => removeItem(product.id)}>-</Button>
                         <span className="text-lg font-semibold">{quantity}</span>
                         <Button onClick={onAddItem} className="w-12" variant="outline">+</Button>
                     </div>
